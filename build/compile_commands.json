@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/rvolkov/Documents/projects/opengl_tutorial/build",
+  "command": "/usr/bin/clang++   -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -o CMakeFiles/OpenGL_Tutorial.dir/main.cpp.o -c /Users/rvolkov/Documents/projects/opengl_tutorial/main.cpp",
+  "file": "/Users/rvolkov/Documents/projects/opengl_tutorial/main.cpp",
+  "output": "CMakeFiles/OpenGL_Tutorial.dir/main.cpp.o"
+}
+]
