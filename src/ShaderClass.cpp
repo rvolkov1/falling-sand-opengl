@@ -2,13 +2,14 @@
 
 std::string get_file_contents(const char* filename)
 {
-	std::ifstream in(filename, std::ios::binary);
-  std::cout<< "fname: " << filename << std::endl;
+  std::string fname("Shaders/");
+  fname.append(filename);
+	std::ifstream in(fname, std::ios::binary);
+  std::cout<< "fname: " << fname << std::endl;
 
 	if (in)
 	{
 		std::string contents;
-    std::cout << "fucking filename bruh: " << filename << std::endl;
 		in.seekg(0, std::ios::end);
 		contents.resize(in.tellg());
 		in.seekg(0, std::ios::beg);
