@@ -1,4 +1,5 @@
 #include "VBO.h"
+#include <iostream>
 
 VBO::VBO()
 {
@@ -28,8 +29,10 @@ void VBO::Unbind()
 
 void VBO::Update(std::vector<std::vector<int>> grid) {
   std::vector<float> vertices;
-  float sizeX = 2.0f / 10;
-  float sizeY = 2.0f / 10;
+  float sizeX = 2.0f / grid[0].size();
+  float sizeY = 2.0f / grid.size();
+
+  //std::cout << sizeX << " " << sizeY << std::endl;
 
   float backgroundColor[] = {0, 0, 0};
   float sandColor[] = {0.70, 0.62, 0.41};
@@ -37,8 +40,11 @@ void VBO::Update(std::vector<std::vector<int>> grid) {
 
   for (int y = 0; y < grid.size(); ++y) {
     for (int x = 0; x < grid[0].size(); ++x) {
-      float posX = (float)x / 10 * 2.0f - 1.0f;
-      float posY = (float)y / 10 * 2.0f - 1.0f;
+      float posX = (float)x / grid[0].size() * 2.0f - 1.0f;
+      float posY = (float)y / grid.size() * 2.0f - 1.0f;
+
+      //std::cout << posX<< " " << posY << std::endl;
+
       float *currentColor;
 
       if (grid[y][x] == 0) {

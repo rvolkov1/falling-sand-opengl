@@ -43,14 +43,18 @@ int main()
   // load GLAD so that it configues OpenGL
   gladLoadGL();
   
+  const int pixelSize = 10;
   const int width = 800;
   const int height = 800;
 
+  const int numPixelRows = height / pixelSize;
+  const int numPixelCols = width / pixelSize;
+
   std::vector<std::vector<int>> grid;
 
-  for (int row = 0; row < 10; ++row) {
+  for (int row = 0; row < numPixelRows; ++row) {
     std::vector<int> curr;
-    for (int col = 0; col < 10; ++col) {
+    for (int col = 0; col < numPixelCols; ++col) {
       int val = std::rand() % 2;
       curr.push_back(val);
     }
@@ -61,6 +65,7 @@ int main()
 
   // not sure
   glViewport(0, 0, width, height);
+
   Shader shaderProgram("default.vert", "default.frag");
 
   VBO VBO1;
@@ -84,7 +89,7 @@ int main()
     VBO1.Update(grid);
 
     VAO1.Bind();
-    glDrawArrays(GL_TRIANGLES, 0, 10 * 10 * 6);
+    glDrawArrays(GL_TRIANGLES, 0, numPixelCols * numPixelRows * 6);
     VAO1.Unbind();
     //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

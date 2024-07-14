@@ -1,0 +1,1 @@
+Always run cmake on main.cpp, filepaths need to be updated so that it can be ran in any file within the project
