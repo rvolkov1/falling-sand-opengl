@@ -26,31 +26,44 @@ void VBO::Unbind()
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void VBO::Update() {
+void VBO::Update(std::vector<std::vector<int>> grid) {
   std::vector<float> vertices;
   float sizeX = 2.0f / 10;
   float sizeY = 2.0f / 10;
 
-  for (int y = 0; y < 10; ++y) {
-    for (int x = 0; x < 10; ++x) {
+  float backgroundColor[] = {0, 0, 0};
+  float sandColor[] = {0.70, 0.62, 0.41};
+  float waterColor[] = {0.17, 0.46, 0.91};
+
+  for (int y = 0; y < grid.size(); ++y) {
+    for (int x = 0; x < grid[0].size(); ++x) {
       float posX = (float)x / 10 * 2.0f - 1.0f;
       float posY = (float)y / 10 * 2.0f - 1.0f;
+      float *currentColor;
+
+      if (grid[y][x] == 0) {
+        currentColor = backgroundColor;
+      } else if (grid[y][x] == 1) {
+        currentColor = sandColor;
+      } else {
+        currentColor = waterColor;
+      }
 
       // x_pos, y_pos, rgb
       vertices.insert(vertices.end(), {
         posX, posY,
-        0.70, 0.62, 0.41,
+        currentColor[0], currentColor[1], currentColor[2],
         posX + sizeX, posY,
-        0.70, 0.62, 0.41,
+        currentColor[0], currentColor[1], currentColor[2],
         posX, posY + sizeY,
-        0.70, 0.62, 0.41,
+        currentColor[0], currentColor[1], currentColor[2],
 
         posX + sizeX, posY,
-        0.17, 0.46, 0.91,
+        currentColor[0], currentColor[1], currentColor[2],
         posX, posY + sizeY,
-        0.17, 0.46, 0.91,
+        currentColor[0], currentColor[1], currentColor[2],
         posX + sizeX, posY + sizeY,
-        0.17, 0.46, 0.91
+        currentColor[0], currentColor[1], currentColor[2],
       });
     }
   }

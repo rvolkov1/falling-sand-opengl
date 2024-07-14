@@ -13,7 +13,7 @@ class VBO
 
     void Bind();
     void Unbind();
-    void Update();
+    void Update(std::vector<std::vector<int>> grid);
     void Delete();
 
 };

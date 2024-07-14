@@ -1,6 +1,7 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#include <stdlib.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -10,32 +11,6 @@
 #include "src/ShaderClass.h"
 #include "src/VAO.h"
 #include "src/VBO.h"
-
-// vertices for triangle
-GLfloat vertices[] = 
-{
-  -0.5f, -0.5f * float(sqrt(3)) / 3,     0.0f,   // lower left corner
-  0.5f,  -0.5f * float(sqrt(3)) / 3,     0.0f,     // lower right corner
-  0.0f,   0.5f * float(sqrt(3)) * 2 / 3, 0.0f,  // upper corner
-};
-/*
-GLfloat vertices[] = 
-{
-  //       COORDINATES                        /  COLORS 
-  -0.5f, -0.5f, 0.0f,     1.0f,   0.0f,  0.0f, // lower left corner
-  -0.5f,  0.5f, 0.0f,     0.0f,   1.0f,  0.0f, // lower right corner
-  0.5f,   0.5f, 0.0f,     0.0f,   0.0f,  1.0f, // upper corner
-  0.5f,  -0.5f, 0.0f,     1.0f,   1.0f,  1.0f, // Inner left
-};
-*/
-
-GLuint indices[] = 
-{
-  0, 2, 1, // lower triangle
-  0, 3, 2, // lower right triangle
-};
-
-int grid[10][10] = {0};
 
 int main() 
 {
@@ -71,6 +46,17 @@ int main()
   const int width = 800;
   const int height = 800;
 
+  std::vector<std::vector<int>> grid;
+
+  for (int row = 0; row < 10; ++row) {
+    std::vector<int> curr;
+    for (int col = 0; col < 10; ++col) {
+      int val = std::rand() % 2;
+      curr.push_back(val);
+    }
+    grid.push_back(curr);
+  }
+
   printf("%d, %d\n", width, height);
 
   // not sure
@@ -87,13 +73,15 @@ int main()
   // swap back and front buffers
   glfwSwapBuffers(window);
 
+  float lastTime = 0.0f;
+
   while (!glfwWindowShouldClose(window)) 
   {
     glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shaderProgram.Activate();
 
-    VBO1.Update();
+    VBO1.Update(grid);
 
     VAO1.Bind();
     glDrawArrays(GL_TRIANGLES, 0, 10 * 10 * 6);
@@ -104,6 +92,12 @@ int main()
 
     // handle GLFW events
     glfwPollEvents();
+
+    // calc fps
+    float currTime = glfwGetTime();
+    float dt = currTime - lastTime;
+    lastTime = currTime;
+    std::cout << "FPS: " << (1 / dt) << " / " << dt << std::endl;
   }
 
   VAO1.Delete();
