@@ -1,0 +1,4 @@
+.vscode
+app.dSYM
+build
+CMakeCache.txt

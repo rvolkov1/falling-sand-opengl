@@ -15,4 +15,4 @@ find_package(OpenGL REQUIRED)
 target_link_libraries(opengl-tutorial PRIVATE ${OPENGL_gl_LIBRARY})
 target_link_libraries(opengl-tutorial PRIVATE glfw3)
 
-file(COPY Shaders DESTINATION /)
+#file(COPY Shaders DESTINATION /)
