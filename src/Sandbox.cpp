@@ -29,8 +29,10 @@ void Sandbox::Update() {
       int tileY = this->numPixelRows - int(mousePos.second / this->tileSize);
 
       for (int i = 0; i < 10; ++i) {
-        int dx = rand() % 5;
-        int dy = rand() % 5;
+        int maxDist = 7;
+        int split = rand() % maxDist;
+        int dx = rand() % maxDist - split;
+        int dy = rand() % split;
 
         if (tileX + dx < this->numPixelRows && tileY + dy < this->numPixelRows) {
           this->grid[tileY + dy][tileX + dx] = 1;
