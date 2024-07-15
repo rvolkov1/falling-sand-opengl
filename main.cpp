@@ -11,6 +11,7 @@
 #include "src/ShaderClass.h"
 #include "src/VAO.h"
 #include "src/VBO.h"
+#include "src/Sandbox.h"
 
 int main() 
 {
@@ -43,23 +44,10 @@ int main()
   // load GLAD so that it configues OpenGL
   gladLoadGL();
   
-  const int pixelSize = 10;
   const int width = 800;
   const int height = 800;
 
-  const int numPixelRows = height / pixelSize;
-  const int numPixelCols = width / pixelSize;
-
-  std::vector<std::vector<int>> grid;
-
-  for (int row = 0; row < numPixelRows; ++row) {
-    std::vector<int> curr;
-    for (int col = 0; col < numPixelCols; ++col) {
-      int val = std::rand() % 2;
-      curr.push_back(val);
-    }
-    grid.push_back(curr);
-  }
+  Sandbox Sandbox(width, height);
 
   printf("%d, %d\n", width, height);
 
@@ -86,10 +74,11 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT);
     shaderProgram.Activate();
 
-    VBO1.Update(grid);
+    Sandbox.Update();
+    VBO1.Update(Sandbox.grid);
 
     VAO1.Bind();
-    glDrawArrays(GL_TRIANGLES, 0, numPixelCols * numPixelRows * 6);
+    glDrawArrays(GL_TRIANGLES, 0, Sandbox.numPixelCols * Sandbox.numPixelRows * 6);
     VAO1.Unbind();
     //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
