@@ -5,13 +5,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-
 #include "src/ShaderClass.h"
 #include "src/VAO.h"
 #include "src/VBO.h"
 #include "src/Sandbox.h"
+#include "src/IO.h"
 
 int main() 
 {
@@ -21,6 +19,8 @@ int main()
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+  // hack to avoid odd behavior with retina displays
   glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
 
   // hack for mac
@@ -41,11 +41,15 @@ int main()
   // use window
   glfwMakeContextCurrent(window);
 
-  // load GLAD so that it configues OpenGL
-  gladLoadGL();
-  
   const int width = 800;
   const int height = 800;
+
+  // handle user input
+  glfwSetCursorPosCallback(window, IO::mouseMoveCallback);
+  glfwSetMouseButtonCallback(window, IO::mousePressCallback);
+
+  // load GLAD so that it configues OpenGL
+  gladLoadGL(); 
 
   Sandbox Sandbox(width, height);
 
@@ -91,7 +95,7 @@ int main()
     float currTime = glfwGetTime();
     float dt = currTime - lastTime;
     lastTime = currTime;
-    std::cout << "FPS: " << (1 / dt) << " / " << dt << std::endl;
+    //std::cout << "FPS: " << (1 / dt) << " / " << dt << std::endl;
   }
 
   VAO1.Delete();

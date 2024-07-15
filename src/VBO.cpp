@@ -1,5 +1,6 @@
-#include "VBO.h"
 #include <iostream>
+
+#include "VBO.h"
 
 VBO::VBO()
 {
