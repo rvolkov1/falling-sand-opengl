@@ -95,7 +95,7 @@ int main()
     float currTime = glfwGetTime();
     float dt = currTime - lastTime;
     lastTime = currTime;
-    //std::cout << "FPS: " << (1 / dt) << " / " << dt << std::endl;
+    std::cout << "FPS: " << (1 / dt) << " / " << dt << std::endl;
   }
 
   VAO1.Delete();

@@ -9,7 +9,7 @@ class Sandbox
 {
   public:
     std::vector<std::vector<int>> grid;
-    int tileSize = 10;
+    int tileSize = 5;
     int numPixelRows;
     int numPixelCols;
 
